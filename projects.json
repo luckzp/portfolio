@@ -1,0 +1,43 @@
+{
+  "projects": [
+    {
+      "id": "wooden-fish",
+      "url": "https://woodenfish.pengzhang.net",
+      "title": "电子木鱼",
+      "screenshot": "images/wooden-fish.png",
+      "subtitle": "在线解压积功德",
+      "description": "极简主义的在线木鱼敲击工具，提供沉浸式禅意体验。支持自动敲击、功德统计，是程序员的解压神器，工作累了就来敲一敲。",
+      "category": "tool",
+      "featured": true,
+      "tags": ["解压", "小游戏", "Web应用", "禅意"],
+      "date": "2025.06",
+      "index": "01"
+    },
+    {
+      "id": "json-parser",
+      "url": "https://json.pengzhang.net",
+      "title": "JSON Parser",
+      "screenshot": "images/json-parser.png",
+      "subtitle": "在线 JSON 解析与格式化工具",
+      "description": "强大的在线 JSON 编辑器，支持语法高亮、格式化、压缩和验证。提供时间戳转换功能，是开发者处理 JSON 数据的最佳助手。",
+      "category": "tool",
+      "featured": false,
+      "tags": ["JSON", "开发者工具", "Next.js", "在线工具"],
+      "date": "2025.12",
+      "index": "03"
+    },
+    {
+      "id": "resume-builder",
+      "url": "https://resume.pengzhang.net",
+      "title": "简历生成器",
+      "screenshot": "images/resume-builder.png",
+      "subtitle": "Markdown 简历制作工具",
+      "description": "使用 Markdown 轻松创建专业简历，支持多种模板选择，提供实时编辑预览。支持导出为 PDF、HTML 等多种格式，让求职更简单。",
+      "category": "saas",
+      "featured": false,
+      "tags": ["简历", "Markdown", "Next.js", "PDF导出"],
+      "date": "2025.09",
+      "index": "02"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "scripts": {
+    "screenshot": "node scripts/screenshot.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^23.0.0"
+  }
+}
