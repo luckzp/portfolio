@@ -327,6 +327,70 @@
     transform: rotate(-45deg);
   }
 
+  /* ── Section Title ── */
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    padding: 32px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+
+  /* ── Articles Grid ── */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 16px 0 0;
+  }
+
+  .article-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    animation: fadeUp 0.8s ease both;
+  }
+  .article-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    background: radial-gradient(ellipse at var(--mx, 50%) var(--my, 50%), rgba(212, 165, 116, 0.06), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .article-card:hover::before { opacity: 1; }
+  .article-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+  .article-title {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-primary);
+    transition: color 0.3s;
+    line-height: 1.4;
+  }
+  .article-card:hover .article-title {
+    color: var(--accent);
+  }
+
   /* ── Footer ── */
   footer {
     padding: 48px 0;
@@ -379,6 +443,7 @@
     .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
     .nav-links { gap: 20px; }
     .nav-contact { gap: 12px; flex-wrap: wrap; }
+    .articles-grid { grid-template-columns: 1fr; }
     footer { text-align: center; justify-content: center; }
   }
 </style>
@@ -411,7 +476,12 @@
     <p class="hero-desc">独立开发者 / 产品设计师。专注于打造美观、实用的数字产品，从构想到上线，全栈实现每一个作品。</p>
   </section>
 
+  <!-- Articles Section -->
+  <h2 class="section-title">Articles</h2>
+  <div class="articles-grid" id="articles-container"></div>
+
   <!-- Projects Grid -->
+  <h2 class="section-title">Projects</h2>
   <div class="projects" id="projects-container">
     <!-- Project cards will be dynamically inserted here by JavaScript -->
   </div>
@@ -437,6 +507,15 @@
         const card = createProjectCard(project, index);
         container.appendChild(card);
       });
+
+      // Render articles
+      const articlesContainer = document.getElementById('articles-container');
+      if (data.articles) {
+        data.articles.forEach((article, index) => {
+          const card = createArticleCard(article, index);
+          articlesContainer.appendChild(card);
+        });
+      }
 
       // Reinitialize effects
       initMouseGlowEffect();
@@ -484,8 +563,18 @@
     return card;
   }
 
+  function createArticleCard(article, index) {
+    const card = document.createElement('a');
+    card.href = article.url;
+    card.target = '_blank';
+    card.className = 'article-card';
+    card.style.animationDelay = `${0.4 + (index * 0.1)}s`;
+    card.innerHTML = `<span class="article-title">${article.title}</span>`;
+    return card;
+  }
+
   function initMouseGlowEffect() {
-    document.querySelectorAll('.project-card').forEach(card => {
+    document.querySelectorAll('.project-card, .article-card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -497,7 +586,7 @@
   }
 
   function initScrollObserver() {
-    const cards = document.querySelectorAll('.project-card');
+    const cards = document.querySelectorAll('.project-card, .article-card');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
